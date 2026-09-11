@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "scope": "仅供项目演示的两条历史岗位摘要和一条技术文档问答节选；完整研究数据未包含。",
+  "jobs": [
+    {
+      "id": "job-167",
+      "title": "深圳-大模型研发工程师(J100834)",
+      "company": "百度",
+      "city": "深圳",
+      "text": "技能摘要：Python、RAG、Agent、vLLM、LangChain、Docker、Kubernetes。职责摘要：研发推理服务、工具链与数据管道，将RAG和Agent集成到业务产品。",
+      "skills": [
+        "Python",
+        "RAG",
+        "Agent",
+        "vLLM",
+        "LangChain",
+        "Docker",
+        "Kubernetes"
+      ],
+      "source_url": "https://talent.baidu.com/jobs/detail/GRADUATE/7952a5bc-816a-4b9b-bd58-65d70a66d5d0",
+      "collected_at": "2026-08-20",
+      "source_kind": "项目整理的历史岗位摘要，非完整职位原文"
+    },
+    {
+      "id": "job-169",
+      "title": "大模型算法工程师(J96229)",
+      "company": "百度",
+      "city": "深圳",
+      "text": "技能摘要：LLM、NLP、SFT、RM、RL、文本生成、RAG、Agent。职责摘要：构建文本生成能力，完成后训练调优和平台化落地。",
+      "skills": [
+        "LLM",
+        "NLP",
+        "SFT",
+        "RM",
+        "RL",
+        "文本生成",
+        "RAG",
+        "Agent"
+      ],
+      "source_url": "https://talent.baidu.com/jobs/detail/SOCIAL/c0adcaf4-b7ef-42e4-b9c4-8dd3c2e44ba6",
+      "collected_at": "2026-08-20",
+      "source_kind": "项目整理的历史岗位摘要，非完整职位原文"
+    }
+  ],
+  "pdf_recording": {
+    "question": "表中 Flash 的最大默认时钟频率和自动暂停支持情况是什么？",
+    "answer": "默认情况下，模组 SPI flash 支持的最大时钟频率为 120 MHz，且不支持自动暂停功能。 [1]",
+    "recorded_at": "2026-09-09",
+    "model": "deepseek-v4-flash",
+    "model_usage": {
+      "prompt_tokens": 367,
+      "completion_tokens": 78,
+      "total_tokens": 445,
+      "prompt_cache_hit_tokens": 0,
+      "prompt_cache_miss_tokens": 367
+    },
+    "latency_ms": 1322.6,
+    "refused": false,
+    "source_url": "https://documentation.espressif.com/esp32-s3-wroom-2_datasheet_cn.pdf",
+    "source_title": "ESP32-S3-WROOM-2 技术规格书",
+    "pdf_page": 3,
+    "printed_page": "3",
+    "quote": "默认情况下,模组 SPI flash 支持的最大时钟频率为 120 MHz,且不支持自动暂停功能。",
+    "origin_report_sha256": "72c19eb1e256fdfd5df6a5e995e6431e1319561fe8cdd6c309e6c5e5fadab4aa",
+    "origin_case_id": "D05",
+    "origin_document_sha256": "3bc83dc619c7a64a9cf14d9b9e7af74ce5f34f78d7c8d0650a37cc6449541d1b"
+  }
+}

@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-09-10T09:32:40.591004+00:00",
+  "title": "岗位需求 RAG 分析助手",
+  "cases": [
+    {
+      "id": "job-evidence",
+      "title": "岗位要求，有据可查",
+      "category": "岗位检索",
+      "subtitle": "从问题找到两条岗位证据",
+      "question": "这两条岗位摘要中，哪些内容涉及 RAG 和 Agent？",
+      "result": "技能摘要：Python、RAG、Agent、vLLM、LangChain、Docker、Kubernetes。职责摘要：研发推理服务、工具链与数据管道，将RAG和Agent集成到业务产品。 [1]\n技能摘要：LLM、NLP、SFT、RM、RL、文本生成、RAG、Agent。职责摘要：构建文本生成能力，完成后训练调优和平台化落地。 [2]",
+      "evidence": [
+        {
+          "title": "百度 · 深圳-大模型研发工程师(J100834)",
+          "text": "技能摘要：Python、RAG、Agent、vLLM、LangChain、Docker、Kubernetes。职责摘要：研发推理服务、工具链与数据管道，将RAG和Agent集成到业务产品。",
+          "url": "https://talent.baidu.com/jobs/detail/GRADUATE/7952a5bc-816a-4b9b-bd58-65d70a66d5d0",
+          "label": "项目整理的历史岗位摘要，非完整职位原文 · 采集于 2026-08-20",
+          "number": 1
+        },
+        {
+          "title": "百度 · 大模型算法工程师(J96229)",
+          "text": "技能摘要：LLM、NLP、SFT、RM、RL、文本生成、RAG、Agent。职责摘要：构建文本生成能力，完成后训练调优和平台化落地。",
+          "url": "https://talent.baidu.com/jobs/detail/SOCIAL/c0adcaf4-b7ef-42e4-b9c4-8dd3c2e44ba6",
+          "label": "项目整理的历史岗位摘要，非完整职位原文 · 采集于 2026-08-20",
+          "number": 2
+        }
+      ],
+      "steps": [
+        "读取两条已选岗位摘要",
+        "以 RAG Agent 做关键词检索",
+        "返回匹配的摘要与引用编号"
+      ],
+      "facts": [
+        {
+          "label": "检索范围",
+          "value": "2 条历史摘要"
+        },
+        {
+          "label": "运行方式",
+          "value": "关键词检索＋摘录"
+        },
+        {
+          "label": "来源引用",
+          "value": "2 条"
+        }
+      ],
+      "note": "这是项目对选定摘要的实际运行结果。摘录帮助回查要求，不代表模型生成，也不证明岗位目前仍在招聘。",
+      "raw_result": {
+        "question": "RAG Agent",
+        "resolved_query": "RAG Agent",
+        "answer": "技能摘要：Python、RAG、Agent、vLLM、LangChain、Docker、Kubernetes。职责摘要：研发推理服务、工具链与数据管道，将RAG和Agent集成到业务产品。 [1]\n技能摘要：LLM、NLP、SFT、RM、RL、文本生成、RAG、Agent。职责摘要：构建文本生成能力，完成后训练调优和平台化落地。 [2]",
+        "refused": false,
+        "citations": [
+          {
+            "number": 1,
+            "chunk_id": "job-167",
+            "source": "job-167",
+            "source_url": "https://talent.baidu.com/jobs/detail/GRADUATE/7952a5bc-816a-4b9b-bd58-65d70a66d5d0"
+          },
+          {
+            "number": 2,
+            "chunk_id": "job-169",
+            "source": "job-169",
+            "source_url": "https://talent.baidu.com/jobs/detail/SOCIAL/c0adcaf4-b7ef-42e4-b9c4-8dd3c2e44ba6"
+          }
+        ],
+        "retrieved": [
+          {
+            "chunk_id": "job-167",
+            "source": "job-167",
+            "score": 0.5209187336970131,
+            "city": "深圳",
+            "initial_rank": null,
+            "initial_score": null,
+            "rerank_score": null,
+            "rerank_latency_ms": null
+          },
+          {
+            "chunk_id": "job-169",
+            "source": "job-169",
+            "score": 0.3646431135879092,
+            "city": "深圳",
+            "initial_rank": null,
+            "initial_score": null,
+            "rerank_score": null,
+            "rerank_latency_ms": null
+          }
+        ],
+        "failure_type": null,
+        "latency_ms": 0.08659999002702534,
+        "answer_mode": "rag",
+        "market_analysis": null,
+        "model_usage": null
+      },
+      "execution_query": "RAG Agent"
+    },
+    {
+      "id": "empty-scope",
+      "title": "没有匹配，就明确拒答",
+      "category": "失败边界",
+      "subtitle": "看不到证据时，不补出结论",
+      "question": "在这两条摘要中，只看广州的 RAG / Agent 岗位。",
+      "result": "资料中没有足够证据。",
+      "evidence": [],
+      "steps": [
+        "读取相同的两条深圳岗位摘要",
+        "增加城市筛选：广州",
+        "检索为空，返回明确的拒答结果"
+      ],
+      "facts": [
+        {
+          "label": "筛选条件",
+          "value": "广州"
+        },
+        {
+          "label": "匹配证据",
+          "value": "0 条"
+        },
+        {
+          "label": "系统结果",
+          "value": "拒答"
+        }
+      ],
+      "note": "没有匹配只针对本次两条摘要，不能解释成广州不存在相关岗位。该案例在生成回答之前结束。",
+      "raw_result": {
+        "question": "RAG Agent",
+        "resolved_query": "RAG Agent",
+        "answer": "资料中没有足够证据。",
+        "refused": true,
+        "citations": [],
+        "retrieved": [],
+        "failure_type": "retrieval_empty",
+        "latency_ms": 0.018699996871873736,
+        "answer_mode": "rag",
+        "market_analysis": null,
+        "model_usage": null
+      }
+    },
+    {
+      "id": "saved-evaluation",
+      "title": "评估结果，可以复查",
+      "category": "后端流程",
+      "subtitle": "重复请求与人工确认都有记录",
+      "question": "用一份示例能力清单评估所选岗位，再重复请求并添加复查意见。",
+      "result": "已匹配到有示例能力证据的标签：Python、RAG。\n尚无示例能力证据的岗位标签：Agent、Docker、Kubernetes、LangChain、vLLM。\n届别、经验及岗位是否仍开放：需要另行核实。",
+      "evidence": [
+        {
+          "title": "百度 · 深圳-大模型研发工程师(J100834)",
+          "text": "技能摘要：Python、RAG、Agent、vLLM、LangChain、Docker、Kubernetes。职责摘要：研发推理服务、工具链与数据管道，将RAG和Agent集成到业务产品。",
+          "url": "https://talent.baidu.com/jobs/detail/GRADUATE/7952a5bc-816a-4b9b-bd58-65d70a66d5d0",
+          "label": "项目整理的历史岗位摘要，非完整职位原文 · 采集于 2026-08-20",
+          "number": 1
+        }
+      ],
+      "steps": [
+        "保存所选岗位的历史快照",
+        "对照示例能力，保存评估结果",
+        "相同请求直接读取原结果",
+        "追加复查意见，拒绝过期版本",
+        "重新打开数据库后仍可读取结果"
+      ],
+      "facts": [
+        {
+          "label": "生成执行",
+          "value": "1 次"
+        },
+        {
+          "label": "重复请求",
+          "value": "读取原结果"
+        },
+        {
+          "label": "保存方式",
+          "value": "本机 SQLite"
+        }
+      ],
+      "note": "能力清单仅为演示输入，不包含个人简历。标签对照不是录用评分。此例实际执行本机 SQLite 流程；不代表公网或多用户验证。",
+      "checks": {
+        "duplicate_import_created_zero": true,
+        "same_key_replayed": true,
+        "generator_calls": 1,
+        "review_version": 1,
+        "stale_review_conflict": true,
+        "reopened_record_readable": true,
+        "reopened_request_replayed": true
+      },
+      "comparison": {
+        "city_matches": true,
+        "supported_mentions": [
+          {
+            "skill": "Python",
+            "evidence": "示例能力：完成 Python 练习",
+            "source": "演示输入"
+          },
+          {
+            "skill": "RAG",
+            "evidence": "示例能力：完成检索练习",
+            "source": "演示输入"
+          }
+        ],
+        "mentions_without_profile_evidence": [
+          "Agent",
+          "Docker",
+          "Kubernetes",
+          "LangChain",
+          "vLLM"
+        ],
+        "skill_match_method": "exact_casefolded_tag_overlap_not_eligibility_score",
+        "experience_requirement_text": "",
+        "education_requirement_text": "",
+        "graduation_eligibility": "needs_confirmation",
+        "experience_eligibility": "needs_confirmation",
+        "currently_hiring": "unverified"
+      }
+    },
+    {
+      "id": "pdf-citation",
+      "title": "文档回答，回到原文",
+      "category": "PDF 问答",
+      "subtitle": "保留参数、默认条件与页码",
+      "question": "表中 Flash 的最大默认时钟频率和自动暂停支持情况是什么？",
+      "result": "默认情况下，模组 SPI flash 支持的最大时钟频率为 120 MHz，且不支持自动暂停功能。 [1]",
+      "evidence": [
+        {
+          "number": 1,
+          "title": "ESP32-S3-WROOM-2 技术规格书",
+          "text": "默认情况下,模组 SPI flash 支持的最大时钟频率为 120 MHz,且不支持自动暂停功能。",
+          "label": "原文节选 · PDF 第 3 页 / 印刷页 3",
+          "url": "https://documentation.espressif.com/esp32-s3-wroom-2_datasheet_cn.pdf"
+        }
+      ],
+      "steps": [
+        "读取厂商技术文档",
+        "检索到默认时钟与功能说明",
+        "模型生成带引用的回答",
+        "保留原文节选和页码供复核"
+      ],
+      "facts": [
+        {
+          "label": "记录日期",
+          "value": "2026-09-09"
+        },
+        {
+          "label": "当时的模型",
+          "value": "deepseek-v4-flash"
+        },
+        {
+          "label": "引用位置",
+          "value": "第 3 页"
+        }
+      ],
+      "note": "这是此前真实模型调用的保存记录，本次未重新调用模型。仅展示必要原文节选，不附完整厂商 PDF。引用合法仍不等于语义自动核验。",
+      "recording": {
+        "question": "表中 Flash 的最大默认时钟频率和自动暂停支持情况是什么？",
+        "answer": "默认情况下，模组 SPI flash 支持的最大时钟频率为 120 MHz，且不支持自动暂停功能。 [1]",
+        "recorded_at": "2026-09-09",
+        "model": "deepseek-v4-flash",
+        "model_usage": {
+          "prompt_tokens": 367,
+          "completion_tokens": 78,
+          "total_tokens": 445,
+          "prompt_cache_hit_tokens": 0,
+          "prompt_cache_miss_tokens": 367
+        },
+        "latency_ms": 1322.6,
+        "refused": false,
+        "source_url": "https://documentation.espressif.com/esp32-s3-wroom-2_datasheet_cn.pdf",
+        "source_title": "ESP32-S3-WROOM-2 技术规格书",
+        "pdf_page": 3,
+        "printed_page": "3",
+        "quote": "默认情况下,模组 SPI flash 支持的最大时钟频率为 120 MHz,且不支持自动暂停功能。",
+        "origin_report_sha256": "72c19eb1e256fdfd5df6a5e995e6431e1319561fe8cdd6c309e6c5e5fadab4aa",
+        "origin_case_id": "D05",
+        "origin_document_sha256": "3bc83dc619c7a64a9cf14d9b9e7af74ce5f34f78d7c8d0650a37cc6449541d1b"
+      }
+    }
+  ],
+  "source_sha256": "701d7844cfa6908d007c2759bea001cdf17a53577abe2a15b4fe3b4a0304b51b",
+  "code_sha256": {
+    "demo_replay.py": "5a9d386b3a1568b7dccaad9561212b2d21c930913882c2b6b2d578cf9a060695",
+    "grounded_service.py": "a17e278fc30fed7dc9f55056d42868076f8e8e25927e315abb60a458a520419d",
+    "retriever.py": "6016e9ebfd9a942c096392761b15e6a2d8119f9a412bc6525852478ac50abc60",
+    "security.py": "646c073390d180b75a3d3f26805460b696c49190e206ccf74d80d62e0a207ef1",
+    "prompt.py": "b7df5f4c95d271ecc0c450cda407cc470b7af4af17221ac26cd67c766ebbd611",
+    "job_backend/evaluation.py": "c1f1dc3637b25ccb18c49bbd0f1868255f5223102dc694a20ccd77b0f52c504e",
+    "job_backend/repository.py": "346880dedaef6600fd5bad13e93eb51b3d5193a86a3b9af971aaa3905443c36d"
+  },
+  "privacy": "只包含两条历史岗位摘要、一条 PDF 问答节选及演示能力输入；完整研究数据与个人资料未包含。",
+  "mode": "local-static-replay",
+  "new_model_calls": 0
+}

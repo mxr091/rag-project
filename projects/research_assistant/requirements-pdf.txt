@@ -1,0 +1,4 @@
+# Native PDF module; OCR and model runtimes are deliberately separate.
+pdfplumber==0.11.9
+pypdfium2==5.13.0
+-r requirements-api.txt
