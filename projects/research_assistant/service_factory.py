@@ -188,13 +188,19 @@ def _create_generator(mode: str) -> Any:
     try:
         max_retries = int(os.getenv("MODEL_MAX_RETRIES", "0"))
         retry_backoff_seconds = float(os.getenv("MODEL_RETRY_BACKOFF_SECONDS", "0.5"))
+        raw_max_tokens = os.getenv("MODEL_MAX_TOKENS", "").strip()
+        max_tokens = int(raw_max_tokens) if raw_max_tokens else None
     except ValueError as error:
         raise RuntimeError(
-            "MODEL_MAX_RETRIES and MODEL_RETRY_BACKOFF_SECONDS must be numeric"
+            "MODEL_MAX_RETRIES, MODEL_RETRY_BACKOFF_SECONDS and MODEL_MAX_TOKENS "
+            "must be numeric"
         ) from error
-    if max_retries < 0 or retry_backoff_seconds < 0:
+    if max_retries < 0 or retry_backoff_seconds < 0 or (
+        max_tokens is not None and max_tokens <= 0
+    ):
         raise RuntimeError(
-            "MODEL_MAX_RETRIES and MODEL_RETRY_BACKOFF_SECONDS must not be negative"
+            "MODEL_MAX_RETRIES and MODEL_RETRY_BACKOFF_SECONDS must not be negative; "
+            "MODEL_MAX_TOKENS must be positive"
         )
 
     adapter_path = ROOT.parents[1] / "experiments" / "02-openai-compatible-adapter"
@@ -207,6 +213,7 @@ def _create_generator(mode: str) -> Any:
         model_name,
         max_retries=max_retries,
         retry_backoff_seconds=retry_backoff_seconds,
+        max_tokens=max_tokens,
     )
     return ModelGroundedGenerator(model)
 

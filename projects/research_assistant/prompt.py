@@ -39,6 +39,7 @@ def build_grounded_prompt(question: str, results: Sequence[_ResultLike]) -> str:
 2. 资料不足时只回答“资料中没有足够证据。”。
 3. 每个关键结论后必须标注证据编号，例如 [1]；不得引用不存在的编号。
 4. 不得编造证据中没有的岗位、公司、技能、数字或结论。
+5. 默认直接、简洁地回答，除非用户明确要求展开，否则控制在 600 个中文字符以内。
 
 用户问题：
 {question.strip()}

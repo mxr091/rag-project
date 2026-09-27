@@ -3,8 +3,10 @@ __pycache__/
 *.py[cod]
 .env
 .env.*
+!.env.example
 data/local/
 data/raw/
+data/processed/
 data/index/
 logs/
 output/

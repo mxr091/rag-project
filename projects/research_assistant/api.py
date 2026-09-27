@@ -10,6 +10,7 @@ from threading import Lock
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, ConfigDict, Field
 
 from rag_observability import append_rag_trace
@@ -21,6 +22,34 @@ from service_factory import (
 )
 
 logger = logging.getLogger("job_rag_api")
+PLAYGROUND_HTML = ROOT / "personal_live_web.html"
+
+
+def dependency_failure_detail(error: RuntimeError) -> dict[str, Any]:
+    failure_type = getattr(error, "failure_type", None)
+    raw_usage = getattr(error, "usage", None)
+    usage = (
+        {
+            key: value
+            for key, value in raw_usage.items()
+            if isinstance(key, str)
+            and isinstance(value, int)
+            and not isinstance(value, bool)
+        }
+        if isinstance(raw_usage, dict)
+        else None
+    )
+    if failure_type == "output_truncated":
+        return {
+            "message": "模型输出达到本次 token 上限，已拒绝使用半截答案；请缩小问题或减少证据数量。",
+            "failure_type": failure_type,
+            "model_usage": usage,
+        }
+    return {
+        "message": "RAG service is temporarily unavailable",
+        "failure_type": failure_type or "dependency_failure",
+        "model_usage": usage,
+    }
 
 
 class AskRequest(BaseModel):
@@ -120,6 +149,10 @@ def create_app(
                     )
         return app.state.service
 
+    @app.get("/", include_in_schema=False)
+    def playground() -> FileResponse:
+        return FileResponse(PLAYGROUND_HTML, media_type="text/html")
+
     @app.get("/health")
     def health() -> dict[str, Any]:
         return {
@@ -158,7 +191,10 @@ def create_app(
             raise HTTPException(status_code=422, detail=str(error)) from error
         except RuntimeError as error:
             logger.exception("RAG dependency failed")
-            raise HTTPException(status_code=503, detail="RAG service is temporarily unavailable") from error
+            raise HTTPException(
+                status_code=503,
+                detail=dependency_failure_detail(error),
+            ) from error
 
         try:
             append_rag_trace(

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-10T09:32:40.591004+00:00",
+  "built_at": "2026-09-25T17:41:30.221522+00:00",
   "title": "岗位需求 RAG 分析助手",
   "cases": [
     {
@@ -88,7 +88,7 @@
           }
         ],
         "failure_type": null,
-        "latency_ms": 0.08659999002702534,
+        "latency_ms": 0.08650000381749123,
         "answer_mode": "rag",
         "market_analysis": null,
         "model_usage": null
@@ -131,7 +131,7 @@
         "citations": [],
         "retrieved": [],
         "failure_type": "retrieval_empty",
-        "latency_ms": 0.018699996871873736,
+        "latency_ms": 0.016099991626106203,
         "answer_mode": "rag",
         "market_analysis": null,
         "model_usage": null
@@ -281,7 +281,7 @@
     "grounded_service.py": "a17e278fc30fed7dc9f55056d42868076f8e8e25927e315abb60a458a520419d",
     "retriever.py": "6016e9ebfd9a942c096392761b15e6a2d8119f9a412bc6525852478ac50abc60",
     "security.py": "646c073390d180b75a3d3f26805460b696c49190e206ccf74d80d62e0a207ef1",
-    "prompt.py": "b7df5f4c95d271ecc0c450cda407cc470b7af4af17221ac26cd67c766ebbd611",
+    "prompt.py": "bc809a526fc3627c83138eb92eae598fff06039ff40367307b08fb92e3c63232",
     "job_backend/evaluation.py": "c1f1dc3637b25ccb18c49bbd0f1868255f5223102dc694a20ccd77b0f52c504e",
     "job_backend/repository.py": "346880dedaef6600fd5bad13e93eb51b3d5193a86a3b9af971aaa3905443c36d"
   },

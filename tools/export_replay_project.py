@@ -15,8 +15,11 @@ service_factory.py market_analysis.py analyze_learning_alignment.py retriever.py
 reranker.py prompt.py security.py rag_observability.py observability.py rag_workflow.py
 langgraph_workflow.py rag_evaluation.py rerank_evaluation.py job_vector_cli.py
 job_dataset_pipeline.py backend_api.py backend_cli.py pdf_api.py pdf_cli.py demo_replay.py
-test_demo_replay.py backend-alembic.ini requirements-api.txt requirements-backend.txt
-requirements-embedding.txt requirements-workflow.txt requirements-pdf.txt requirements-pdf-test.txt""".split()
+personal_live_cli.py personal_live_web.py personal_live_web.html run_live_web_scenarios.py
+test_demo_replay.py test_personal_live_cli.py test_personal_live_web.py test_live_web_scenarios.py
+backend-alembic.ini .env.example requirements-api.txt requirements-backend.txt
+requirements-embedding.txt requirements-live.txt requirements-workflow.txt requirements-pdf.txt
+requirements-pdf-test.txt""".split()
 SUBMODULES = {
     "job_backend": "__init__.py contracts.py corpus.py database.py evaluation.py models.py repository.py".split(),
     "pdf_module": "__init__.py chunks.py config.py parser.py retrieval.py service.py store.py".split(),
@@ -32,7 +35,11 @@ def public_mapping():
     result.update({"README.md": PROJECT + "demo/PUBLIC_README.md",
                    "LICENSE": PROJECT + "demo/LICENSE_CODE.txt",
                    "OPEN_DEMO.html": PROJECT + "demo/index.html",
+                   "START_LIVE_RAG_WEB.cmd": "启动真实岗位RAG测试.cmd",
+                   "docs/LIVE_WEB_VALIDATION_2026-09-26.md":
+                       "notes/2026-09-26-live-web-scenario-validation.md",
                    "tools/export_replay_project.py": "tools/export_replay_project.py",
+                   "tools/validate_replay_export.py": "tools/validate_replay_export.py",
                    "experiments/01-minimal-agent/agent_loop.py": "experiments/01-minimal-agent/agent_loop.py",
                    "experiments/02-openai-compatible-adapter/openai_compatible.py":
                        "experiments/02-openai-compatible-adapter/openai_compatible.py"})
@@ -81,8 +88,11 @@ def export_project(destination, source_root=ROOT):
     for name, expected in replay["code_sha256"].items():
         if sha256(contents[PROJECT + name]).hexdigest() != expected:
             raise ValueError("recorded source changed; regenerate the replay first")
-    contents[".gitignore"] = b".venv/\n__pycache__/\n*.py[cod]\n.env\n.env.*\ndata/local/\ndata/raw/\ndata/index/\nlogs/\noutput/\n"
-    manifest = {"schema_version": 1, "scope": "selected code and local replay; no original dataset or git history",
+    contents[".gitignore"] = (
+        b".venv/\n__pycache__/\n*.py[cod]\n.env\n.env.*\n!.env.example\n"
+        b"data/local/\ndata/raw/\ndata/processed/\ndata/index/\nlogs/\noutput/\n"
+    )
+    manifest = {"schema_version": 1, "scope": "selected code, local replay, and opt-in live entrypoints; no original dataset, credentials, model cache, or git history",
                 "files": {key: {"sha256": sha256(data).hexdigest(), "bytes": len(data)}
                           for key, data in sorted(contents.items())}}
     contents["PUBLIC_FILES.json"] = (json.dumps(manifest, indent=2) + "\n").encode("utf-8")
